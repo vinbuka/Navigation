@@ -31,7 +31,7 @@ jobs:
           gradle assembleRelease --no-daemon --console=plain > build.log 2>&1
           code=$?
           if [ $code -ne 0 ]; then
-            { grep -E "^e: " build.log | head -6; sed -n '/What went wrong/,/Try:/p' build.log | head -6; } | while IFS= read -r line; do
+            { grep -E "^e: " build.log | head -9; sed -n '/What went wrong/,/Try:/p' build.log | sed -n '2,2p'; } | while IFS= read -r line; do
               echo "::error::${line}"
             done
             tail -60 build.log
